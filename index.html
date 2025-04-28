@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Good Title</title>
+    <title>Birthday Surprise</title>
     <style>
         body {
             background-color: red;
@@ -85,6 +85,29 @@
             display: none;
             margin: 20px 0;
         }
+        
+        #videoContainer {
+            display: none;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +121,15 @@
     <div id="authorizedText">Authorized Access Granted!</div>
     <div id="birthdayMessage"></div>
     <button id="clickMeBtn">Click Me</button>
+    
+    <div id="videoContainer">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/sPtc6P9xvbg?autoplay=1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+        </div>
+    </div>
     
     <script>
         document.getElementById('submitBtn').addEventListener('click', function() {
@@ -132,8 +164,12 @@
         });
         
         document.getElementById('clickMeBtn').addEventListener('click', function() {
-            // Replace this with your desired link
-            window.location.href = "https://youtu.be/sPtc6P9xvbg?feature=shared";
+            // Hide the button and show the video
+            document.getElementById('clickMeBtn').style.display = 'none';
+            document.getElementById('videoContainer').style.display = 'block';
+            
+            // Optional: Scroll to the video
+            document.getElementById('videoContainer').scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 </body>
