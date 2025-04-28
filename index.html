@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Red Page</title>
+    <title>Good Title</title>
     <style>
         body {
             background-color: red;
@@ -11,17 +11,28 @@
             padding: 20px;
             font-family: Arial, sans-serif;
             text-align: center;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         h1 {
             font-size: 48px;
-            color: white;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
-        .youtube-link {
-            display: inline-block;
+        #birthdayMessage {
+            font-size: 36px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        #clickMeBtn {
+            display: none;
             background-color: white;
             color: red;
             padding: 15px 30px;
@@ -29,16 +40,101 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
         }
         
-        .youtube-link:hover {
-            background-color: #f0f0f0;
+        #nameInput {
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 20px;
+        }
+        
+        #submitBtn {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: white;
+            color: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid red;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            display: none;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #authorizedText {
+            font-size: 24px;
+            display: none;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    <h1>HAPPY BIRTHDAY:)</h1>
-    <a href="https://youtu.be/sPtc6P9xvbg?feature=shared" class="youtube-link">Click Me</a>
+    <div id="inputSection">
+        <h1>Enter Your Name</h1>
+        <input type="text" id="nameInput" placeholder="Your name">
+        <button id="submitBtn">Submit</button>
+    </div>
+    
+    <div class="loader" id="loader"></div>
+    <div id="authorizedText">Authorized Access Granted!</div>
+    <div id="birthdayMessage"></div>
+    <button id="clickMeBtn">Click Me</button>
+    
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (name === '') {
+                alert('Please enter your name!');
+                return;
+            }
+            
+            // Hide input section
+            document.getElementById('inputSection').style.display = 'none';
+            
+            // Show loader
+            document.getElementById('loader').style.display = 'block';
+            
+            // After 3 seconds, show authorized text and birthday message
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('authorizedText').style.display = 'block';
+                
+                // After 1 second, show birthday message
+                setTimeout(function() {
+                    document.getElementById('birthdayMessage').style.display = 'block';
+                    document.getElementById('birthdayMessage').textContent = `Happy Birthday, ${name}!`;
+                    
+                    // After 1 more second, show the button
+                    setTimeout(function() {
+                        document.getElementById('clickMeBtn').style.display = 'inline-block';
+                    }, 1000);
+                }, 1000);
+            }, 3000);
+        });
+        
+        document.getElementById('clickMeBtn').addEventListener('click', function() {
+            // Replace this with your desired link
+            window.location.href = "https://youtu.be/sPtc6P9xvbg?feature=shared";
+        });
+    </script>
 </body>
 </html>
